@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiTeklaStructuresMonitor", "MultiTeklaStructuresMonitor\MultiTeklaStructuresMonitor.csproj", "{297BC90E-AD07-435F-B0A8-D44C016E4140}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8A6D56FA-3474-434E-A110-7DA73CCB6670} = {8A6D56FA-3474-434E-A110-7DA73CCB6670}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protos", "Protos", "{2E6F7EDD-E44D-4837-97CA-4870F730AFD6}"
+	ProjectSection(SolutionItems) = preProject
+		Proto\TeklaGrpcApiService.proto = Proto\TeklaGrpcApiService.proto
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeklaGrpcApiService", "TeklaGrpcApiService\TeklaGrpcApiService.csproj", "{8A6D56FA-3474-434E-A110-7DA73CCB6670}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{297BC90E-AD07-435F-B0A8-D44C016E4140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{297BC90E-AD07-435F-B0A8-D44C016E4140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{297BC90E-AD07-435F-B0A8-D44C016E4140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{297BC90E-AD07-435F-B0A8-D44C016E4140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6D56FA-3474-434E-A110-7DA73CCB6670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6D56FA-3474-434E-A110-7DA73CCB6670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6D56FA-3474-434E-A110-7DA73CCB6670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6D56FA-3474-434E-A110-7DA73CCB6670}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C92837FD-FDCE-4397-A027-FF3B9FF1CADC}
+	EndGlobalSection
+EndGlobal

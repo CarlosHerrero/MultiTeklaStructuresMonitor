@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "TeklaService";
+
+service TeklaServiceApi {
+  rpc Ping (StringRequest) returns (StringReply);
+  rpc GetOpenModel (StringRequest) returns (StringReply);
+  rpc StopServer(StringRequest) returns (StringReply);
+}
+
+message StringRequest {
+  string name = 1;
+}
+
+message StringReply {
+  string message = 1;
+}
