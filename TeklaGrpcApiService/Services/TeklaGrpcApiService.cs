@@ -12,45 +12,44 @@
 
     public class TeklaGrpcApiService : TeklaServiceApi.TeklaServiceApiBase
     {
-        private readonly ILogger logger;
-
-        public TeklaGrpcApiService(ILogger logger)
+        public TeklaGrpcApiService()
         {
-            this.logger = logger;
         }
 
         public Server? Server { get; set; }
 
         public override Task<StringReply> Ping(StringRequest request, ServerCallContext context)
         {
-            logger.LogInformation($"Ping:  {request.Name}");
+            Trace.WriteLine($"Ping:  {request.Name}");
             return System.Threading.Tasks.Task.FromResult(new StringReply { Message = $"Hello, {request.Name} im node: {Process.GetCurrentProcess().Id}" });
         }
 
         public override Task<StringReply> GetOpenModel(StringRequest request, ServerCallContext context)
         {
-            logger.LogInformation($"GetOpenModel:  {request.Name}");
+            Trace.WriteLine($"GetOpenModel:  {request.Name}");
             try
             {
                 var modelInfo = new Model().GetInfo();
+                Trace.WriteLine($"GetOpenModel Ok:  {modelInfo.ModelName} : {modelInfo.ModelPath}");
                 return System.Threading.Tasks.Task.FromResult(new StringReply { Message = $"{modelInfo.ModelName} : {modelInfo.ModelPath}" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Trace.WriteLine($"GetOpenModel Failed:  {ex.Message}");
                 return System.Threading.Tasks.Task.FromResult(new StringReply { Message = $"Tekla Structures not running" });
             }
         }
 
         public override async Task<StringReply> StopServer(StringRequest request, ServerCallContext context)
         {
-            logger.LogInformation("Shutdown request received.");
+            Trace.WriteLine("Shutdown request received.");
             if (Server != null)
             {
                 await Server.ShutdownAsync();
                 return new StringReply { Message = "Server is shutting down." };
             }
 
-            logger.LogInformation("Shutdown not handled, Server not configued correctly");
+            Trace.WriteLine("Shutdown not handled, Server not configued correctly");
             return new StringReply { Message = "Server cannot be shut down." };
         }
     }
