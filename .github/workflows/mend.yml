@@ -1,0 +1,44 @@
+name: Mend Analysis
+
+on:
+  push:
+    branches: [ "master" ]
+
+
+jobs:
+  build:
+    name: Run Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.11
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          
+         
+      - name: Install Mend Analyser
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.ORG_TOOLS_ACCESS_TOKEN }}  
+        run: |
+          mkdir ~/.trimbletools --parents
+          cd ~/.trimbletools
+          wget https://github.com/jmecosta/jmecosta/releases/download/1.0.3/download.sh
+          wget https://github.com/whitesource/unified-agent-distribution/releases/latest/download/wss-unified-agent.jar
+          chmod +x download.sh
+          ./download.sh TrimbleSolutionsCorporation BatMiscTools 1.0.0 TrimbleMendWrapper.zip TrimbleMendWrapper
+          cd $OLDPATH
+      - name: Restore
+        run: dotnet restore --verbosity detailed
+      - name: Build
+        run: dotnet build
+      - name: Analyze
+        run: |
+          ~/.trimbletools/TrimbleMendWrapper/TrimbleMendWrapper -j ~/.trimbletools/wss-unified-agent.jar -d . -c whitesource.config-tekla -o ${{secrets.MEND_ORG_TOKEN}} -p ${{secrets.MEND_PRODUCT_TOKEN}} --additionalagentargs "/project:TeklaEnvService-${{ github.ref_name }}"
+

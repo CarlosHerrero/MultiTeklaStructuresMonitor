@@ -1,0 +1,34 @@
+####################################################################
+# WhiteSource configuration file
+####################################################################
+checkPolicies=false
+forceCheckAllDependencies=false
+offline=false
+ 
+apiKey=<OrganisationApiKeyValue>
+
+productName=
+productVersion=
+productToken=<productTokenValue>
+
+projectName=Tekla.Examples:MultiTeklaStructuresMonitor
+projectVersion=
+
+##########################################################################################
+# Includes/Excludes Glob patterns - PLEASE USE ONLY ONE EXCLUDE LINE AND ONE INCLUDE LINE
+##########################################################################################
+# Want to know about GLOB patterns that are used in the includes + excludes?
+# See https://en.wikipedia.org/wiki/Glob_(programming)
+# Want to test your glob patterns? See http://www.globtester.com/
+#########################################################################################
+#includes=**/*.c **/*.cc **/*.cp **/*.cpp **/*.cxx **/*.c++ **/*.h **/*.hpp **/*.hxx
+#includes=**/*.m **/*.mm  **/*.js **/*.php
+#includes=**/*.jar
+#includes=**/*.gem **/*.rb
+includes=**/*.dll **/*.cs **/*.c#  **/*.csharp 
+#includes=**/*.tgz **/*.deb **/*.gzip **/*.rpm **/*.tar.bz2 
+#includes=**/*.zip **/*.tar.gz **/*.egg **/*.whl **/*.py
+#excludes=**/*sources.jar **/*javadoc.jar
+excludes=**/*Tests.csproj  **/packages/**
+case.sensitive.glob=false
+followSymbolicLink=true
