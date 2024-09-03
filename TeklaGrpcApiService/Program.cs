@@ -19,11 +19,8 @@ namespace TeklaGrpcApiService
 
     class Program
     {
-
         static int RunAndReturnExitCode(Options options)
         {
-
-
             using ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
                 builder.AddSimpleConsole(options =>
                 {
@@ -32,8 +29,6 @@ namespace TeklaGrpcApiService
                     options.TimestampFormat = "HH:mm:ss ";
                 }));
 
-
-            ILogger logger = loggerFactory.CreateLogger("TeklaGrpcApiService");
             Trace.Listeners.Add(new TextWriterTraceListener(options.Log));
             Trace.AutoFlush = true; // Ensure each write is flushed immediately
 
@@ -47,20 +42,21 @@ namespace TeklaGrpcApiService
                 try
                 {
                     var modelInfo = new Model().GetInfo();
-                    logger.LogInformation($"{modelInfo.ModelName} : {modelInfo.ModelPath}");
+                    Trace.WriteLine($"{modelInfo.ModelName} : {modelInfo.ModelPath}");
                     return 0;
                 }
                 catch (Exception ex)
                 {
-                    logger.LogInformation($"Failed to connect to TS: {ex.Message}");
+                    Trace.WriteLine($"Failed to connect to TS: {ex.Message}");
                     return 1;
                 }
             }
 
+            var sessionName = Environment.GetEnvironmentVariable("SESSIONNAME");
 
-            logger.LogInformation($"Tekla Api Server Requested to start with Port : {options.Port} => Log: {options.Log}");
+            Trace.WriteLine($"Tekla Api Server Requested to start with Port : {options.Port} => Log: {options.Log} => SESSIONNAME = '{sessionName}'" );
 
-            var apiService = new TeklaGrpcApiService(logger);
+            var apiService = new TeklaGrpcApiService();
 
             Server server = new()
             {
@@ -71,7 +67,7 @@ namespace TeklaGrpcApiService
             };
             apiService.Server = server;
             server.Start();
-            logger.LogInformation($"server listening on port {options.Port}");
+            Trace.WriteLine($"server listening on port {options.Port}");
 
             // Block the main thread until the server is requested to shut down
             WaitForShutdownAsync(server).Wait();
