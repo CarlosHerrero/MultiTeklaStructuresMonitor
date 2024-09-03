@@ -40,5 +40,5 @@ jobs:
         run: dotnet build
       - name: Analyze
         run: |
-          ~/.trimbletools/TrimbleMendWrapper/TrimbleMendWrapper -j ~/.trimbletools/wss-unified-agent.jar -d . -c whitesource.config-tekla -o ${{secrets.MEND_ORG_TOKEN}} -p ${{secrets.MEND_PRODUCT_TOKEN}} --additionalagentargs "/project:TeklaEnvService-${{ github.ref_name }}"
+          ~/.trimbletools/TrimbleMendWrapper/TrimbleMendWrapper -j ~/.trimbletools/wss-unified-agent.jar -d . -c whitesource.config-tekla -o ${{secrets.MEND_ORG_TOKEN}} -p ${{secrets.MEND_PRODUCT_TOKEN}} --additionalagentargs "/project:Tekla.Examples:MultiTeklaStructuresMonitor"
 
